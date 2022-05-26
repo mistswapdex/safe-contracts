@@ -47,7 +47,24 @@ const soliditySettings = !!SOLIDITY_SETTINGS ? JSON.parse(SOLIDITY_SETTINGS) : u
 
 const deterministicDeployment = CUSTOM_DETERMINISTIC_DEPLOYMENT == "true" ?
   (network: string) => {
-    const info = getSingletonFactoryInfo(parseInt(network))
+    const infos = {
+      10000: {
+        "gasPrice": 2046739556,
+        "gasLimit": 100000,
+        "signerAddress": "0xE1CB04A0fA36DdD16a06ea828007E35e1a3cBC37",
+        "transaction": "0xf8a6808479fec464830186a08080b853604580600e600039806000f350fe7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe03601600081602082378035828234f58015156039578182fd5b8082525050506014600cf3824e43a0acd83aeb82fb5be9b50ddb756388b393a4dead90a53d4ad41be337bd7d323331a018c27606339dc54d38df057b870a61a6227d34ece4cc9c52d28738cdffb5caa7",
+        "address": "0x914d7Fec6aaC8cd542e72Bca78B30650d45643d7"
+      },
+      10001: {
+        "gasPrice": 1000000000,
+        "gasLimit": 100000,
+        "signerAddress": "0xE1CB04A0fA36DdD16a06ea828007E35e1a3cBC37",
+        "transaction": "0xf8a680843b9aca00830186a08080b853604580600e600039806000f350fe7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe03601600081602082378035828234f58015156039578182fd5b8082525050506014600cf3824e46a09f7317d9b9d8d37fc4580600acfd4e73686385b107d78e9f9629c59fe96257e8a059e58570c604625c2ee1900ad9aaa30ba844e28da52ea1c2dabd38dcdc6ac636",
+        "address": "0x914d7Fec6aaC8cd542e72Bca78B30650d45643d7"
+      }
+    } as any
+
+    const info = infos[parseInt(network)]
     if (!info) return undefined
     return {
       factory: info.address,
@@ -120,6 +137,14 @@ const userConfig: HardhatUserConfig = {
     fantomTestnet: {
       ...sharedNetworkConfig,
       url: `https://rpc.testnet.fantom.network/`,
+    },
+    smartbch: {
+      ...sharedNetworkConfig,
+      url: `https://smartbch.fountainhead.cash/mainnet`,
+    },
+    "smartbch-amber": {
+      ...sharedNetworkConfig,
+      url: `http://moeing.tech:8545`,
     }
   },
   deterministicDeployment,
