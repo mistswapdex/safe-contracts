@@ -145,9 +145,21 @@ const userConfig: HardhatUserConfig = {
     "smartbch-amber": {
       ...sharedNetworkConfig,
       url: `http://moeing.tech:8545`,
+    },
+    dogechain: {
+      ...sharedNetworkConfig,
+      url: "https://rpc.dogechain.dog",
+      chainId: 2000,
+      live: true,
+      saveDeployments: true,
+      gasPrice: 50000000000
+    },
+    "dogechain-testnet": {
+      ...sharedNetworkConfig,
+      url: "https://rpc-testnet.dogechain.dog",
     }
   },
-  deterministicDeployment,
+  // deterministicDeployment,
   namedAccounts: {
     deployer: 0,
   },
